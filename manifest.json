@@ -1,9 +1,12 @@
 
 {
+  "id": "spartan-frontline-game",
   "name": "Spartan Frontline",
   "short_name": "Spartan",
   "description": "2D Spartan Shooter: Ancient steel meets modern fire.",
-  "start_url": "index.html",
+  "lang": "it-IT",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0c0a09",
   "theme_color": "#8B0000",
@@ -12,7 +15,8 @@
     {
       "src": "https://img.icons8.com/color/144/spartan-helmet.png",
       "sizes": "144x144",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "https://img.icons8.com/color/192/spartan-helmet.png",
@@ -31,6 +35,12 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "https://img.icons8.com/color/512/spartan-helmet.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "screenshots": [
@@ -39,7 +49,7 @@
       "sizes": "1000x600",
       "type": "image/jpeg",
       "form_factor": "wide",
-      "label": "Battlefield"
+      "label": "Spartan Battlefront"
     }
   ]
 }

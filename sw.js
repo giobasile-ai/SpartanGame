@@ -1,8 +1,8 @@
 
-const CACHE_NAME = 'spartan-v6';
+const CACHE_NAME = 'spartan-v7';
 const ASSETS = [
-  'index.html',
-  'manifest.json',
+  './index.html',
+  './manifest.json',
   'https://cdn.tailwindcss.com',
   'https://img.icons8.com/color/144/spartan-helmet.png',
   'https://img.icons8.com/color/192/spartan-helmet.png',
