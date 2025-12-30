@@ -1,4 +1,4 @@
-const CACHE_NAME = 'spartan-v7-cache-v2';
+const CACHE_NAME = 'spartan-v7-cache-v5';
 const ASSETS = [
   './index.html',
   './spartan-v7.webmanifest'
@@ -21,8 +21,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      // Usiamo addAll ma con cautela
-      return cache.addAll(ASSETS).catch(err => console.warn('Cache warm-up partial:', err));
+      return Promise.allSettled(ASSETS.map(url => cache.add(url)));
     })
   );
 });

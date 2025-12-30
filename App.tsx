@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { GameCanvas } from './components/GameCanvas';
 import { UIOverlay } from './components/UIOverlay';
@@ -7,8 +6,6 @@ import { TouchControls } from './components/TouchControls';
 import { GameState, WeaponType, Obstacle, ObstacleType, CharacterType } from './types';
 import { WORLD_WIDTH, WORLD_HEIGHT } from './constants';
 import { GoogleGenAI } from "@google/genai";
-
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 const App: React.FC = () => {
   const [gameState, setGameState] = useState<GameState>({
@@ -37,20 +34,23 @@ const App: React.FC = () => {
   } as unknown as GameState);
 
   const [spartanWisdom, setSpartanWisdom] = useState("THIS IS SPARTA!");
-  // Cambiato da singolo oggetto a mappa di booleani per gestire più tasti insieme
   const [touchInputs, setTouchInputs] = useState<Record<string, boolean>>({});
 
   const fetchWisdom = useCallback(async () => {
     try {
+      // Inizializziamo l'API solo al momento del bisogno per evitare errori di setup
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: "Write a short, gritty, one-sentence Spartan battle cry or piece of wisdom for a warrior.",
       });
-      if (response.text) {
+      if (response && response.text) {
         setSpartanWisdom(response.text.trim());
       }
-    } catch (e) {
-      console.error("Failed to fetch wisdom", e);
+    } catch (e: any) {
+      console.warn("Gemini API (Wisdom) skipped: ", e.message || "Quota limit.");
+      // Fallback silenzioso
+      setSpartanWisdom("Victory or death!");
     }
   }, []);
 
