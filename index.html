@@ -59,19 +59,16 @@
     
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
+        // Registriamo il file sw.js consolidato
         navigator.serviceWorker.register('sw.js')
           .then(reg => {
             statusEl.innerText = 'SW: ACTIVE';
             statusEl.style.background = '#4ade80';
           })
           .catch(err => {
-            if (err.name === 'SecurityError') {
-              statusEl.innerText = 'SW: SANDBOX';
-              statusEl.style.background = '#60a5fa';
-            } else {
-              statusEl.innerText = 'SW: ERROR';
-              statusEl.style.background = '#f87171';
-            }
+            statusEl.innerText = 'SW: ERROR';
+            statusEl.style.background = '#f87171';
+            console.error('SW Registration failed:', err);
           });
       });
     } else {

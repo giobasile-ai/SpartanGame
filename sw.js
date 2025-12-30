@@ -4,7 +4,7 @@ const ASSETS = [
   './manifest.json'
 ];
 
-// PNG 192x192: Quadrato rosso con Lambda spartana (semplice placeholder base64)
+// Placeholder icona Lambda spartana
 const ICON_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAAC6eR2NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6AMXDhIuK767pAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkZW5mdXNoAAAAQUlEQVR42u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8BE4gAAB6S976wAAAABJRU5ErkJggg==';
 
 function base64ToResponse(base64) {
@@ -41,7 +41,6 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   
-  // Intercetta le richieste delle icone per servirle senza file fisici
   if (url.pathname.includes('icon-')) {
     event.respondWith(Promise.resolve(base64ToResponse(ICON_BASE64)));
     return;
