@@ -1,17 +1,10 @@
-const CACHE_NAME = 'spartan-v1-final';
-const ASSETS = [
-  './',
-  './index.html',
-  './manifest.json'
-];
+const CACHE_NAME = 'spartan-v1';
+const ASSETS = ['./', './index.html', './manifest.json'];
 
-// Un'immagine PNG 1x1 rossa valida (Base64) come fallback estremo
-const RED_DOT = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+// PNG 1x1 rosso per simulare l'icona ed evitare errori 404
+const ICON_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAAC6eR2NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6AMXDhIuK767pAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkZW5mdXNoAAAAQUlEQVR42u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8BE4gAAB6S976wAAAABJRU5ErkJggg==';
 
-// Icona Lambda spartana stilizzata (Base64)
-const ICON_DATA = 'iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAAC6eR2NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6AMXDhIuK767pAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkZW5mdXNoAAAAQUlEQVR42u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8BE4gAAB6S976wAAAABJRU5ErkJggg==';
-
-function getResponseFromBase64(base64) {
+function base64ToResponse(base64) {
   const binary = atob(base64);
   const array = new Uint8Array(binary.length);
   for (let i = 0; i < binary.length; i++) {
@@ -22,35 +15,24 @@ function getResponseFromBase64(base64) {
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
-  );
+  e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
 });
 
 self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then(keys => Promise.all(
-      keys.map(key => key !== CACHE_NAME ? caches.delete(key) : null)
-    ))
-  );
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.map(k => k !== CACHE_NAME && caches.delete(k)))));
   self.clients.claim();
 });
 
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
-
-  // INTERCETTAZIONE ICONE: Se il browser chiede l'icona, gliela diamo noi
-  if (url.pathname.endsWith('icon-192.png') || url.pathname.endsWith('icon-512.png')) {
-    e.respondWith(Promise.resolve(getResponseFromBase64(ICON_DATA)));
+  
+  // Se il browser cerca le icone, rispondi con l'immagine finta per evitare il 404
+  if (url.pathname.includes('icon-192.png') || url.pathname.includes('icon-512.png')) {
+    e.respondWith(Promise.resolve(base64ToResponse(ICON_BASE64)));
     return;
   }
 
-  // GESTIONE CACHE NORMALE
   e.respondWith(
-    caches.match(e.request).then(response => {
-      return response || fetch(e.request).catch(() => {
-        if (e.request.mode === 'navigate') return caches.match('./index.html');
-      });
-    })
+    caches.match(e.request).then(r => r || fetch(e.request).catch(() => caches.match('./index.html')))
   );
 });

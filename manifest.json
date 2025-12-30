@@ -1,7 +1,7 @@
 {
   "name": "Spartan Frontline",
   "short_name": "Spartan",
-  "start_url": "index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0c0a09",
   "theme_color": "#8B0000",

@@ -37,8 +37,10 @@ const App: React.FC = () => {
   const [touchInputs, setTouchInputs] = useState<Record<string, boolean>>({});
 
   const fetchWisdom = useCallback(async () => {
+    // Non proviamo nemmeno se sappiamo che la quota è esaurita o manca la chiave
+    if (!process.env.API_KEY) return;
+    
     try {
-      if (!process.env.API_KEY) throw new Error("No Key");
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
@@ -48,7 +50,6 @@ const App: React.FC = () => {
         setSpartanWisdom(response.text.trim());
       }
     } catch (e) {
-      // Fallback silenzioso per evitare errori in console se la quota è finita
       setSpartanWisdom("Victory or death!");
     }
   }, []);
