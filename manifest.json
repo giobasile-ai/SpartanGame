@@ -1,6 +1,5 @@
-
 {
-  "id": "spartan-frontline-v-final-stable",
+  "id": "spartan-frontline-v-final",
   "name": "Spartan Frontline",
   "short_name": "Spartan",
   "description": "2D Spartan Shooter: Ancient steel meets modern fire.",
@@ -13,25 +12,25 @@
   "orientation": "landscape",
   "icons": [
     {
-      "src": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/512/1FA96.png",
+      "src": "https://fonts.gstatic.com/s/e/notoemoji/latest/1fa96/512.png",
       "sizes": "144x144",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/512/1FA96.png",
+      "src": "https://fonts.gstatic.com/s/e/notoemoji/latest/1fa96/512.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/512/1FA96.png",
+      "src": "https://fonts.gstatic.com/s/e/notoemoji/latest/1fa96/512.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/512/1FA96.png",
+      "src": "https://fonts.gstatic.com/s/e/notoemoji/latest/1fa96/512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
