@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'spartan-v-offline-final';
+const CACHE_NAME = 'spartan-v-stable-v2';
 const ASSETS = [
   './index.html',
   './manifest.json',
