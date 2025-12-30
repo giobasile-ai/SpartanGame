@@ -11,13 +11,13 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Spartan">
   
-  <link rel="manifest" href="manifest.json?v=3">
+  <!-- Manifest con versionamento per forzare il ricaricamento -->
+  <link rel="manifest" href="manifest.json?v=4">
   
-  <!-- Icone forzate in Base64 per evitare il castoro -->
-  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAAC6eR2NAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJUExURf9AAAC0v///z9+6V2YAAAACdFJOU/8A5bcwSgAABvBJREFUeNrt3U1vE0ccx/H/G0tVpYp6InXvXatXql669+K9+AI8Fy/BvRcehIdgeAgfghvghjgID8EhcAieEAbhIXgIrpA9BOckL6I6tZNm4pnd9U7v7H77/f7N7L67mR15v9mZD0+YpYfDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMCbVdYf7G63fUfXv+222v6D6v99W3f8f/t9389hS7fdVfP9f6q68Tf77v8+V6uun/Uf/mI329pvdP93u+v/r/fB6f/VuvOHeLd8p2fHOf373fIHzp36fXf7R3y3Z4c57/6q0mne6VmvXp63Gz7DqW+7T7eXz7Gnu6527Oluun7+0D2f46Fru+9uLp9jT/Xy93x31/UnX6Oue8/9nPe97v2u676v9+I7ur9O/6ve5v8f/pG7Of8L6vE569Xp//X7Oud9f57zvuf+3/Hz9f9f/7+T93XfB72v9X5W/6fuzv+X6tX96eXp5Y7vX4mX6u/X/f539H97qV7en3u6u+v/7687vev66V677u7/X++T0//T9+eU7/Y8vXyvXd89/ev83vGf/Kfu57z6Nf76Xv2p3/f/f991/y/fL/9K72u9n/V/9XpP/3L9P+f9v6t6+Vv18unv7P9DtdfLp79Xf3t5euH08rz6+T90e/539Z+6fV6P/y6e3p9XPt+Lp/f76f7u6X/35un9fub0/rxyun9ePd0/9/TP6On9eZXT+/Pq6f65p3/O6On9uSOn9+fV0/1zT/8vP70/73L6p/z0/rx7+vf89P68Z/rn/PT+vGutf8Zfv6c/5affc/qX9PT+vKd/2f/VL+vv6f8v1u9Pr/9N+unv1O/7/09/p+7X/f8nv1f/6e/U/fr/f/on/fR36n79vz/9vV6v/7d6vf7f6fX6f6vX6/+dfr0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGCP3vV/Y7S/X8d+X3/+7/Yf3f9t7evP3z79zX7+1uXm8vy362P7N/f+7v799ur7df33fH51/F94H66vH/5X/v/mD16qP/+B+/0Xn98X6z/f+T8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADA2/IDM7eG0qWn020AAAAASUVORK5CYII=">
-  <link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAAC6eR2NAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJUExURf9AAAC0v///z9+6V2YAAAACdFJOU/8A5bcwSgAABvBJREFUeNrt3U1vE0ccx/H/G0tVpYp6InXvXatXql669+K9+AI8Fy/BvRcehIdgeAgfghvghjgID8EhcAieEAbhIXgIrpA9BOckL6I6tZNm4pnd9U7v7H77/f7N7L67mR15v9mZD0+YpYfDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMCbVdYf7G63fUfXv+222v6D6v99W3f8f/t9389hS7fdVfP9f6q68Tf77v8+V6uun/Uf/mI329pvdP93u+v/r/fB6f/VuvOHeLd8p2fHOf373fIHzp36fXf7R3y3Z4c57/6q0mne6VmvXp63Gz7DqW+7T7eXz7Gnu6527Oluun7+0D2f46Fru+9uLp9jT/Xy93x31/UnX6Oue8/9nPe97v2u676v9+I7ur9O/6ve5v8f/pG7Of8L6vE569Xp//X7Oud9f57zvuf+3/Hz9f9f/7+T93XfB72v9X5W/6fuzv+X6tX96eXp5Y7vX4mX6u/X/f539H97qV7en3u6u+v/7687vev66V677u7/X++T0//T9+eU7/Y8vXyvXd89/ev83vGf/Kfu57z6Nf76Xv2p3/f/f991/y/fL/9K72u9n/V/9XpP/3L9P+f9v6t6+Vv18unv7P9DtdfLp79Xf3t5euH08rz6+T90e/539Z+6fV6P/y6e3p9XPt+Lp/f76f7u6X/35un9fub0/rxyun9ePd0/9/TP6On9eZXT+/Pq6f65p3/O6On9uSOn9+fV0/1zT/8vP70/73L6p/z0/rx7+vf89P68Z/rn/PT+vGutf8Zfv6c/5affc/qX9PT+vKd/2f/VL+vv6f8v1u9Pr/9N+unv1O/7/09/p+7X/f8nv1f/6e/U/fr/f/on/fR36n79vz/9vV6v/7d6vf7f6fX6f6vX6/+dfr0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGCP3vV/Y7S/X8d+X3/+7/Yf3f9t7evP3z79zX7+1uXm8vy362P7N/f+7v799ur7df33fH51/F94H66vH/5X/v/mD16qP/+B+/0Xn98X6z/f+T8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADA2/IDM7eG0qWn020AAAAASUVORK5CYII=">
-  <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAAC6eR2NAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAJUExURf9AAAC0v///z9+6V2YAAAACdFJOU/8A5bcwSgAABvBJREFUeNrt3U1vE0ccx/H/G0tVpYp6InXvXatXql669+K9+AI8Fy/BvRcehIdgeAgfghvghjgID8EhcAieEAbhIXgIrpA9BOckL6I6tZNm4pnd9U7v7H77/f7N7L67mR15v9mZD0+YpYfDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMCbVdYf7G63fUfXv+222v6D6v99W3f8f/t9389hS7fdVfP9f6q68Tf77v8+V6uun/Uf/mI329pvdP93u+v/r/fB6f/VuvOHeLd8p2fHOf373fIHzp36fXf7R3y3Z4c57/6q0mne6VmvXp63Gz7DqW+7T7eXz7Gnu6527Oluun7+0D2f46Fru+9uLp9jT/Xy93x31/UnX6Oue8/9nPe97v2u676v9+I7ur9O/6ve5v8f/pG7Of8L6vE569Xp//X7Oud9f57zvuf+3/Hz9f9f/7+T93XfB72v9X5W/6fuzv+X6tX96eXp5Y7vX4mX6u/X/f539H97qV7en3u6u+v/7687vev66V677u7/X++T0//T9+eU7/Y8vXyvXd89/ev83vGf/Kfu57z6Nf76Xv2p3/f/f991/y/fL/9K72u9n/V/9XpP/3L9P+f9v6t6+Vv18unv7P9DtdfLp79Xf3t5euH08rz6+T90e/539Z+6fV6P/y6e3p9XPt+Lp/f76f7u6X/35un9fub0/rxyun9ePd0/9/TP6On9eZXT+/Pq6f65p3/O6On9uSOn9+fV0/1zT/8vP70/73L6p/z0/rx7+vf89P68Z/rn/PT+vGutf8Zfv6c/5affc/qX9PT+vKd/2f/VL+vv6f8v1u9Pr/9N+unv1O/7/09/p+7X/f8nv1f/6e/U/fr/f/on/fR36n79vz/9vV6v/7d6vf7f6fX6f6vX6/+dfr0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGCP3vV/Y7S/X8d+X3/+7/Yf3f9t7evP3z79zX7+1uXm8vy362P7N/f+7v799ur7df33fH51/F94H66vH/5X/v/mD16qP/+B+/0Xn98X6z/f+T8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADA2/IDM7eG0qWn020AAAAASUVORK5CYII=">
-
+  <!-- Favicon che punta al Service Worker Proxy -->
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  
   <title>Spartan Frontline</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Metamorphous&display=swap" rel="stylesheet">
@@ -41,11 +41,13 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js?v=3')
+        // Registriamo con v=4 per forzare il bypass della cache del browser
+        navigator.serviceWorker.register('sw.js?v=4')
           .then(reg => {
-             console.log('SW Registered');
-             reg.update(); // Forza controllo aggiornamenti
-          });
+             console.log('SW Registered with Proxying');
+             reg.update(); 
+          })
+          .catch(err => console.error('SW Registration Failed', err));
       });
     }
   </script>
