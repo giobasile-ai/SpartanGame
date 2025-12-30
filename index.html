@@ -10,10 +10,10 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Spartan">
   
-  <link rel="manifest" href="spartan-v7.webmanifest">
+  <link rel="manifest" href="manifest.json">
   
-  <link rel="icon" type="image/png" href="icon-v7-192.png">
-  <link rel="apple-touch-icon" href="icon-v7-192.png">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link rel="apple-touch-icon" href="icon-192.png">
   
   <title>Spartan Frontline</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -59,9 +59,9 @@
     
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw-v7.js')
+        navigator.serviceWorker.register('sw.js')
           .then(reg => {
-            statusEl.innerText = 'SW: V7 ACTIVE';
+            statusEl.innerText = 'SW: ACTIVE';
             statusEl.style.background = '#4ade80';
           })
           .catch(err => {

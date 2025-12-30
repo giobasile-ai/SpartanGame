@@ -1,12 +1,11 @@
-
-const CACHE_NAME = 'spartan-v5-cache';
+const CACHE_NAME = 'spartan-frontline-v1';
 const ASSETS = [
-  './index.html?v=5',
-  './manifest.json?v=5'
+  './index.html',
+  './manifest.json'
 ];
 
-// PNG 192x192: Quadrato rosso scuro con Lambda (Λ) spartana stilizzata
-const SPARTAN_ICON_PNG = 'iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAAC6eR2NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFMSURBVHhe7dPRKQRhFIXhsyMREfFvRETEvxEREX8jIiL+RkRE/E1ERPyNiIj4N0RERPxNRETE34iIiL8RERF/IyIi/kZERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETE3zYikXf3AjYdC0+HtwAAAABJRU5ErkJggg==';
+// PNG 192x192: Quadrato rosso con Lambda spartana (semplice placeholder base64)
+const ICON_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAAC6eR2NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6AMXDhIuK767pAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkZW5mdXNoAAAAQUlEQVR42u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8BE4gAAB6S976wAAAABJRU5ErkJggg==';
 
 function base64ToResponse(base64) {
   const binary = atob(base64);
@@ -15,17 +14,16 @@ function base64ToResponse(base64) {
     array[i] = binary.charCodeAt(i);
   }
   return new Response(array, {
-    headers: { 
-      'Content-Type': 'image/png',
-      'Cache-Control': 'no-cache'
-    }
+    headers: { 'Content-Type': 'image/png' }
   });
 }
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then((cache) => {
+      return Promise.allSettled(ASSETS.map(url => cache.add(url)));
+    })
   );
 });
 
@@ -43,15 +41,17 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   
-  // Intercettiamo i nuovi nomi file v5
-  if (url.pathname.includes('spartan-v5-icon')) {
-    event.respondWith(Promise.resolve(base64ToResponse(SPARTAN_ICON_PNG)));
+  // Intercetta le richieste delle icone per servirle senza file fisici
+  if (url.pathname.includes('icon-')) {
+    event.respondWith(Promise.resolve(base64ToResponse(ICON_BASE64)));
     return;
   }
 
   event.respondWith(
     caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+      return response || fetch(event.request).catch(() => {
+        if (event.request.mode === 'navigate') return caches.match('./index.html');
+      });
     })
   );
 });
