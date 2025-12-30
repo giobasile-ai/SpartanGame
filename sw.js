@@ -1,33 +1,35 @@
 
-const CACHE_NAME = 'spartan-v3';
+const CACHE_NAME = 'spartan-v4';
 const ASSETS = [
-  './index.html',
-  './manifest.json',
+  'index.html',
+  'manifest.json',
   'https://cdn.tailwindcss.com',
-  'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Metamorphous&display=swap',
-  'https://img.icons8.com/fluency/192/spartan-helmet.png',
-  'https://img.icons8.com/fluency/512/spartan-helmet.png'
+  'https://img.icons8.com/?size=192&id=71633&format=png',
+  'https://img.icons8.com/?size=512&id=71633&format=png'
 ];
 
 self.addEventListener('install', (event) => {
-  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => Promise.all(
-      keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+      keys.map((key) => {
+        if (key !== CACHE_NAME) return caches.delete(key);
+      })
     ))
   );
+  self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
     })
   );
 });
