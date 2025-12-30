@@ -1,9 +1,9 @@
-const CACHE_NAME = 'spartan-v-final-fix';
+
+const CACHE_NAME = 'spartan-v-offline-final';
 const ASSETS = [
   './index.html',
   './manifest.json',
-  'https://cdn.tailwindcss.com',
-  'https://fonts.gstatic.com/s/e/notoemoji/latest/1fa96/512.png'
+  'https://cdn.tailwindcss.com'
 ];
 
 self.addEventListener('install', (event) => {
