@@ -1,12 +1,10 @@
 
-const CACHE_NAME = 'spartan-v7';
+const CACHE_NAME = 'spartan-v-github-stable';
 const ASSETS = [
   './index.html',
   './manifest.json',
   'https://cdn.tailwindcss.com',
-  'https://img.icons8.com/color/144/spartan-helmet.png',
-  'https://img.icons8.com/color/192/spartan-helmet.png',
-  'https://img.icons8.com/color/512/spartan-helmet.png'
+  'https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/512/1FA96.png'
 ];
 
 self.addEventListener('install', (event) => {
