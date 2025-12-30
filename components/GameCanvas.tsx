@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect, useCallback } from 'react';
 import { GameState, WeaponType, CharacterType, Projectile, Entity, Obstacle, Particle, ObstacleType, ParticleType } from '../types';
 import { 
@@ -57,12 +56,10 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, updateGameSta
     if (!gp) return;
 
     const threshold = 0.2;
-    // Assi Analogici (Levetta Sinistra)
     if (Math.abs(gp.axes[1]) > threshold) {
       keysRef.current['KeyW'] = gp.axes[1] < -threshold;
       keysRef.current['KeyS'] = gp.axes[1] > threshold;
     } else {
-      // Solo se il touch non è attivo resettiamo
       if (!externalInputs?.['KeyW']) keysRef.current['KeyW'] = false;
       if (!externalInputs?.['KeyS']) keysRef.current['KeyS'] = false;
     }
@@ -75,12 +72,9 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, updateGameSta
       if (!externalInputs?.['KeyD']) keysRef.current['KeyD'] = false;
     }
 
-    // Pulsanti (Standard mapping)
-    // 0: A (Salto), 7: R2 (Fuoco), 4/5: L1/R1 (Cambio Arma)
     keysRef.current['Space'] = gp.buttons[0].pressed;
     keysRef.current['Mouse0'] = gp.buttons[7].pressed;
     
-    // Gestione cambio arma (pressione singola)
     if (gp.buttons[4].pressed && !prevGpButtonsRef.current[4]) keysRef.current['KeyQ'] = true;
     if (gp.buttons[5].pressed && !prevGpButtonsRef.current[5]) keysRef.current['KeyE'] = true;
 
@@ -138,7 +132,6 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, updateGameSta
   const gameLoop = useCallback(() => {
     if (gameState.isPaused || gameState.isGameOver) return;
 
-    // Leggi input controller
     pollGamepad();
 
     if (muzzleFlashRef.current) {
@@ -155,7 +148,6 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, updateGameSta
           next.enemies = []; next.projectiles = []; keysRef.current['Delete'] = false;
       }
 
-      // -- Movement --
       if (keysRef.current['KeyA'] || keysRef.current['ArrowLeft']) player.angle -= ROTATION_SPEED;
       if (keysRef.current['KeyD'] || keysRef.current['ArrowRight']) player.angle += ROTATION_SPEED;
 
@@ -184,6 +176,7 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, updateGameSta
 
       if (keysRef.current['Space'] && player.velocity.y === 0) {
         player.velocity.y = JUMP_FORCE;
+        playSound('jump');
         next.particles.push(...createParticles(player.x, player.y + 15, 8, ParticleType.DUST, 'rgba(120, 100, 80, 0.4)'));
       }
       player.velocity.y += GRAVITY;
@@ -244,6 +237,7 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, updateGameSta
             playSound('bash'); e.health -= 15;
             next.particles.push(...createParticles(e.x, e.y, 8, ParticleType.SPARK, '#D4AF37'));
             if (e.health <= 0) {
+              playSound('death');
               next.particles.push(...createParticles(e.x, e.y, 25, ParticleType.BLOOD, '#8B0000'));
               player.score += (e.type === CharacterType.KING ? 500 : 150); return false;
             }
@@ -263,7 +257,11 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, updateGameSta
           for (let enemy of next.enemies) {
             if (Math.sqrt((p.x - enemy.x)**2 + (p.y - enemy.y)**2) < 28) { 
               enemy.health -= p.damage; next.particles.push(...createParticles(p.x, p.y, 6, ParticleType.BLOOD, '#8B0000'));
-              if (enemy.health <= 0) { next.particles.push(...createParticles(enemy.x, enemy.y, 25, ParticleType.BLOOD, '#800000')); player.score += (enemy.type === CharacterType.KING ? 500 : 150); }
+              if (enemy.health <= 0) { 
+                playSound('death');
+                next.particles.push(...createParticles(enemy.x, enemy.y, 25, ParticleType.BLOOD, '#800000')); 
+                player.score += (enemy.type === CharacterType.KING ? 500 : 150); 
+              }
               return false; 
             }
           }
@@ -274,7 +272,11 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, updateGameSta
             if (diff > Math.PI) diff = 2 * Math.PI - diff;
             if (diff < 1.2) { finalDamage *= 0.2; playSound('bash'); next.particles.push(...createParticles(p.x, p.y, 10, ParticleType.SPARK, '#D4AF37')); }
           }
-          if (!prev.isTrainingMode) { player.health -= finalDamage; next.particles.push(...createParticles(player.x, player.y, 4, ParticleType.BLOOD, '#8B0000')); }
+          if (!prev.isTrainingMode) { 
+            player.health -= finalDamage; 
+            playSound('hurt');
+            next.particles.push(...createParticles(player.x, player.y, 4, ParticleType.BLOOD, '#8B0000')); 
+          }
           return false;
         }
         return true;
@@ -288,7 +290,10 @@ export const GameCanvas: React.FC<GameCanvasProps> = ({ gameState, updateGameSta
       });
 
       next.enemies = next.enemies.filter(e => e.health > 0);
-      if (player.score > next.wave * 2000) next.wave += 1;
+      if (player.score > next.wave * 2000) {
+        next.wave += 1;
+        playSound('levelUp');
+      }
       if (player.health <= 0 && !next.isTrainingMode) next.isGameOver = true;
       next.player = player; return next;
     });

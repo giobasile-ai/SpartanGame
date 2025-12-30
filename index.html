@@ -59,15 +59,12 @@
     
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        // Registrazione con percorso relativo pulito
         navigator.serviceWorker.register('sw-v7.js')
           .then(reg => {
             statusEl.innerText = 'SW: V7 ACTIVE';
             statusEl.style.background = '#4ade80';
-            console.log('Spartan SW V7 Registered');
           })
           .catch(err => {
-            // Se fallisce per motivi di sicurezza (comune in sandbox), non lo trattiamo come errore fatale dell'app
             if (err.name === 'SecurityError') {
               statusEl.innerText = 'SW: SANDBOX';
               statusEl.style.background = '#60a5fa';
@@ -75,13 +72,14 @@
               statusEl.innerText = 'SW: ERROR';
               statusEl.style.background = '#f87171';
             }
-            console.warn('Service Worker info:', err);
           });
       });
     } else {
       statusEl.innerText = 'SW: N/A';
     }
   </script>
-  <script type="module" src="index.tsx"></script>
+  <script type="module">
+    import "./index.tsx";
+  </script>
 </body>
 </html>
