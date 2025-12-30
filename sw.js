@@ -1,11 +1,12 @@
 
-const CACHE_NAME = 'spartan-v5';
+const CACHE_NAME = 'spartan-v6';
 const ASSETS = [
   'index.html',
   'manifest.json',
   'https://cdn.tailwindcss.com',
-  'https://img.icons8.com/?size=192&id=103504&format=png',
-  'https://img.icons8.com/?size=512&id=103504&format=png'
+  'https://img.icons8.com/color/144/spartan-helmet.png',
+  'https://img.icons8.com/color/192/spartan-helmet.png',
+  'https://img.icons8.com/color/512/spartan-helmet.png'
 ];
 
 self.addEventListener('install', (event) => {
