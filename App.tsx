@@ -38,18 +38,17 @@ const App: React.FC = () => {
 
   const fetchWisdom = useCallback(async () => {
     try {
-      // Inizializziamo l'API solo al momento del bisogno per evitare errori di setup
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+      if (!process.env.API_KEY) throw new Error("No Key");
+      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: "Write a short, gritty, one-sentence Spartan battle cry or piece of wisdom for a warrior.",
+        contents: "Write a short, gritty, one-sentence Spartan battle cry.",
       });
       if (response && response.text) {
         setSpartanWisdom(response.text.trim());
       }
-    } catch (e: any) {
-      console.warn("Gemini API (Wisdom) skipped: ", e.message || "Quota limit.");
-      // Fallback silenzioso
+    } catch (e) {
+      // Fallback silenzioso per evitare errori in console se la quota è finita
       setSpartanWisdom("Victory or death!");
     }
   }, []);
@@ -68,26 +67,6 @@ const App: React.FC = () => {
         width: Math.random() > 0.5 ? 120 : 60,
         height: Math.random() > 0.5 ? 40 : 120,
         type: ObstacleType.WALL
-      });
-    }
-    for (let i = 0; i < 15; i++) {
-      obs.push({
-        id: `grass-${i}`,
-        x: Math.random() * (WORLD_WIDTH - 200) + 100,
-        y: Math.random() * (WORLD_HEIGHT - 200) + 100,
-        width: 150,
-        height: 100,
-        type: ObstacleType.GRASS
-      });
-    }
-    for (let i = 0; i < 8; i++) {
-      obs.push({
-        id: `tp-${i}`,
-        x: Math.random() * (WORLD_WIDTH - 200) + 100,
-        y: Math.random() * (WORLD_HEIGHT - 200) + 100,
-        width: 80,
-        height: 80,
-        type: ObstacleType.TELEPORT
       });
     }
     return obs;
