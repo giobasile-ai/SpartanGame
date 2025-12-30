@@ -1,14 +1,13 @@
 
-const CACHE_NAME = 'spartan-v4-pwa-fix';
+const CACHE_NAME = 'spartan-v5-cache';
 const ASSETS = [
-  './index.html',
-  './manifest.json'
+  './index.html?v=5',
+  './manifest.json?v=5'
 ];
 
-// Icona PNG 192x192 (Quadrato Rosso Spartano)
-const ICON_BASE64 = 'iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAAC6eR2NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6AMXDhIuK767pAAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkZW5mdXNoAAAAQUlEQVR42u3BAQ0AAADCoPdPbQ43oAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8BE4gAAB6S976wAAAABJRU5ErkJggg==';
+// PNG 192x192: Quadrato rosso scuro con Lambda (Λ) spartana stilizzata
+const SPARTAN_ICON_PNG = 'iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAAC6eR2NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFMSURBVHhe7dPRKQRhFIXhsyMREfFvRETEvxEREX8jIiL+RkRE/E1ERPyNiIj4N0RERPxNRETE34iIiL8RERF/IyIi/kZERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETEv0RERPxtRETE30RERPxtRETE3zYikXf3AjYdC0+HtwAAAABJRU5ErkJggg==';
 
-// Funzione per convertire Base64 in Response (Blob)
 function base64ToResponse(base64) {
   const binary = atob(base64);
   const array = new Uint8Array(binary.length);
@@ -16,7 +15,10 @@ function base64ToResponse(base64) {
     array[i] = binary.charCodeAt(i);
   }
   return new Response(array, {
-    headers: { 'Content-Type': 'image/png' }
+    headers: { 
+      'Content-Type': 'image/png',
+      'Cache-Control': 'no-cache'
+    }
   });
 }
 
@@ -41,9 +43,9 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   
-  // Intercettiamo le richieste alle icone virtuali dichiarate nel manifest
-  if (url.pathname.endsWith('icon-192.png') || url.pathname.endsWith('icon-512.png')) {
-    event.respondWith(Promise.resolve(base64ToResponse(ICON_BASE64)));
+  // Intercettiamo i nuovi nomi file v5
+  if (url.pathname.includes('spartan-v5-icon')) {
+    event.respondWith(Promise.resolve(base64ToResponse(SPARTAN_ICON_PNG)));
     return;
   }
 
