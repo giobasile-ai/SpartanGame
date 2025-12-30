@@ -1,6 +1,6 @@
 
 {
-  "id": "spartan-frontline-standalone",
+  "id": "spartan-frontline-ultimate",
   "name": "Spartan Frontline",
   "short_name": "Spartan",
   "description": "2D Spartan Shooter: Ancient steel meets modern fire.",
@@ -13,13 +13,13 @@
   "orientation": "landscape",
   "icons": [
     {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI0MCIgZmlsbD0iIzFjMTYxMCIgc3Ryb2tlPSIjRDRBRjM3IiBzdHJva2Utd2lkdGg9IjE1Ii8+PHBhdGggZD0iTTI1NiA4MGMtMjAgMC00MCAxMC01MCAzMHY0MGgxMDB2LTQwYy0xMC0yMC0zMC0zMC01MC0zMHoiIGZpbGw9IiM4QjAwMDAiLz48cGF0aCBkPSJNMTgwIDE1MHYxNTBjMCA1MCA0MCA4MCA3NiA4MHM3Ni0zMCA3Ni04MFYxNTBIMTgwek0yNTYgMzM2Yy0yMCAwLTMwLTE1LTMwLTMwczEwLTMwIDMwLTMwIDMwIDE1IDMwIDMwLTEwIDMwLTMwIDMweiIgZmlsbD0iI0Q0QUYzNyIvPjwvc3ZnPg==",
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI0MCIgZmlsbD0iIzFjMTYxMCIgc3Ryb2tlPSIjRDRBRjM3IiBzdHJva2Utd2lkdGg9IjE1Ii8+PHBhdGggZD0iTTI1NiA4MGMtNDAgMC04MCAyMC0xMDAgNjB2NDBoMjAwdi00MGMtMjAtNDAtNjAtNjAtMTAwLTYweiIgZmlsbD0iIzhCMDAwMCIvPjxwYXRoIGQ9Ik0xODAgMTgwdjEyMGMwIDYwIDQwIDEwMCA3NiAxMDBzNzYtNDAgNzYtMTAwVjE4MEgxODB6TTI1NiAzNDBjLTI1IDAtNDAtMjAtNDAtNDBzMTUtNDAgNDAtNDAgNDAgMjAgNDAgNDAtMTUgNDAtNDAgNDB6IiBmaWxsPSIjRDRBRjM3Ii8+PHBhdGggZD0iTTI1NiAxODBMLTMwIDQwaDYweiIgZmlsbD0iIzYwMDAwMCIvPjwvc3ZnPg==",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI0MCIgZmlsbD0iIzFjMTYxMCIgc3Ryb2tlPSIjRDRBRjM3IiBzdHJva2Utd2lkdGg9IjE1Ii8+PHBhdGggZD0iTTI1NiA4MGMtMjAgMC00MCAxMC01MCAzMHY0MGgxMDB2LTQwYy0xMC0yMC0zMC0zMC01MC0zMHoiIGZpbGw9IiM4QjAwMDAiLz48cGF0aCBkPSJNMTgwIDE1MHYxNTBjMCA1MCA0MCA4MCA3NiA4MHM3Ni0zMCA3Ni04MFYxNTBIMTgwek0yNTYgMzM2Yy0yMCAwLTMwLTE1LTMwLTMwczEwLTMwIDMwLTMwIDMwIDE1IDMwIDMwLTEwIDMwLTMwIDMweiIgZmlsbD0iI0Q0QUYzNyIvPjwvc3ZnPg==",
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI0MCIgZmlsbD0iIzFjMTYxMCIgc3Ryb2tlPSIjRDRBRjM3IiBzdHJva2Utd2lkdGg9IjE1Ii8+PHBhdGggZD0iTTI1NiA4MGMtNDAgMC04MCAyMC0xMDAgNjB2NDBoMjAwdi00MGMtMjAtNDAtNjAtNjAtMTAwLTYweiIgZmlsbD0iIzhCMDAwMCIvPjxwYXRoIGQ9Ik0xODAgMTgwdjEyMGMwIDYwIDQwIDEwMCA3NiAxMDBzNzYtNDAgNzYtMTAwVjE4MEgxODB6TTI1NiAzNDBjLTI1IDAtNDAtMjAtNDAtNDBzMTUtNDAgNDAtNDAgNDAgMjAgNDAgNDAtMTUgNDAtNDAgNDB6IiBmaWxsPSIjRDRBRjM3Ii8+PHBhdGggZD0iTTI1NiAxODBMLTMwIDQwaDYweiIgZmlsbD0iIzYwMDAwMCIvPjwvc3ZnPg==",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "maskable"
@@ -31,7 +31,7 @@
       "sizes": "1000x600",
       "type": "image/jpeg",
       "form_factor": "wide",
-      "label": "Battlefield"
+      "label": "Spartan Battlefield"
     }
   ]
 }
