@@ -5,11 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#8B0000">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/192/9430/9430310.png">
+  <link rel="icon" type="image/png" href="https://img.icons8.com/fluency/192/spartan-helmet.png">
   <title>Spartan Frontline</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Metamorphous&display=swap" rel="stylesheet">
@@ -53,8 +50,8 @@
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('sw.js')
-          .then(reg => console.log('PWA: Service Worker Active'))
-          .catch(err => console.log('PWA: Service Worker Error', err));
+          .then(() => console.log('Service Worker Registered'))
+          .catch(err => console.error('Service Worker Failed', err));
       });
     }
   </script>
