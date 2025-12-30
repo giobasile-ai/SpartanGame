@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'spartan-v-stable-v2';
+const CACHE_NAME = 'spartan-v3-forced-refresh';
 const ASSETS = [
   './index.html',
   './manifest.json',
@@ -7,10 +7,10 @@ const ASSETS = [
 ];
 
 self.addEventListener('install', (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
-  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
