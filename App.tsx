@@ -27,6 +27,7 @@ const App: React.FC = () => {
     projectiles: [],
     obstacles: [],
     particles: [],
+    meteors: [],
     isGameOver: false,
     isPaused: true,
     isTrainingMode: false,
@@ -37,20 +38,18 @@ const App: React.FC = () => {
   const [touchInputs, setTouchInputs] = useState<Record<string, boolean>>({});
 
   const fetchWisdom = useCallback(async () => {
-    // Non proviamo nemmeno se sappiamo che la quota è esaurita o manca la chiave
     if (!process.env.API_KEY) return;
-    
     try {
       const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
-        contents: "Write a short, gritty, one-sentence Spartan battle cry.",
+        contents: "Write a short, gritty, one-sentence Spartan battle cry about stars falling and fire.",
       });
       if (response && response.text) {
         setSpartanWisdom(response.text.trim());
       }
     } catch (e) {
-      setSpartanWisdom("Victory or death!");
+      setSpartanWisdom("The heavens rain fire, yet we stand!");
     }
   }, []);
 
@@ -90,8 +89,18 @@ const App: React.FC = () => {
       enemies: [],
       projectiles: [],
       particles: [],
+      meteors: [],
       obstacles: generateLevel(),
       wave: 1
+    }));
+  };
+
+  const exitToMenu = () => {
+    setGameState(prev => ({
+      ...prev,
+      isPaused: true,
+      isTrainingMode: false,
+      isGameOver: false
     }));
   };
 
@@ -111,6 +120,7 @@ const App: React.FC = () => {
         <UIOverlay 
           gameState={gameState} 
           wisdom={spartanWisdom}
+          onExitTraining={exitToMenu}
         />
 
         {!gameState.isPaused && (
@@ -120,9 +130,9 @@ const App: React.FC = () => {
         {gameState.isPaused && !gameState.isGameOver && (
           <Menu 
             title="SPARTAN FRONTLINE" 
-            subtitle="Ancient Steel Meets Modern Lead"
-            buttonText="Battle" 
-            trainingButtonText="Training"
+            subtitle="Meteors Update"
+            buttonText="Start War" 
+            trainingButtonText="Training Mode"
             onAction={() => startGame(false)}
             onTrainingAction={() => startGame(true)}
             wisdom={spartanWisdom}
@@ -131,11 +141,11 @@ const App: React.FC = () => {
 
         {gameState.isGameOver && (
           <Menu 
-            title="FALLEN IN GLORY" 
-            subtitle={`Your legend ends at Wave ${gameState.wave}. Final Score: ${gameState.player.score}`}
-            buttonText="Try Again" 
+            title="FALLEN HERO" 
+            subtitle={`You survived Wave ${gameState.wave} | Final Score: ${gameState.player.score}`}
+            buttonText="Revenge" 
             onAction={() => startGame(false)}
-            wisdom="Even in death, a Spartan stands tall."
+            wisdom="Spartans never die, they just regroup in Hades."
           />
         )}
       </div>

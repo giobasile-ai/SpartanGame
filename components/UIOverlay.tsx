@@ -1,20 +1,22 @@
-
 import React from 'react';
 import { GameState, WeaponType } from '../types';
-import { WEAPONS, WORLD_WIDTH, WORLD_HEIGHT } from '../constants';
+import { WORLD_WIDTH, WORLD_HEIGHT } from '../constants';
 
 interface UIOverlayProps {
   gameState: GameState;
   wisdom: string;
+  onExitTraining: () => void;
 }
 
-export const UIOverlay: React.FC<UIOverlayProps> = ({ gameState, wisdom }) => {
-  const { player, wave, enemies, isTrainingMode } = gameState;
+export const UIOverlay: React.FC<UIOverlayProps> = ({ gameState, wisdom, onExitTraining }) => {
+  const { player, wave, enemies, isTrainingMode, isPaused } = gameState;
+
+  if (isPaused) return null;
 
   return (
     <div className="absolute inset-0 pointer-events-none p-2 md:p-6 flex flex-col justify-between overflow-hidden">
       <div className="flex justify-between items-start">
-        {/* Radar - Ridotto su mobile */}
+        {/* Radar */}
         <div className="relative w-24 h-24 md:w-40 md:h-40 bg-black/60 border-2 border-amber-900 rounded-lg overflow-hidden backdrop-blur-sm shadow-xl">
            <div className="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
               <div className="w-full h-px bg-amber-500"></div>
@@ -28,10 +30,24 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ gameState, wisdom }) => {
                style={{ left: `${(e.x/WORLD_WIDTH)*100}%`, top: `${(e.y/WORLD_HEIGHT)*100}%`, transform: 'translate(-50%, -50%)' }}
              />
            ))}
+           {gameState.meteors.map(m => (
+             <div key={m.id} className="absolute w-1.5 h-1.5 bg-orange-500 rounded-full animate-pulse"
+               style={{ left: `${(m.x/WORLD_WIDTH)*100}%`, top: `${(m.y/WORLD_HEIGHT)*100}%`, transform: 'translate(-50%, -50%)' }}
+             />
+           ))}
         </div>
 
-        {/* Status */}
-        <div className="text-right space-y-1 md:space-y-4">
+        {/* Status & Exit Button */}
+        <div className="text-right space-y-1 md:space-y-4 pointer-events-auto">
+          {isTrainingMode && (
+            <button 
+              onClick={onExitTraining}
+              className="bg-red-900 border-2 border-amber-500 text-white font-black px-4 py-2 rounded-sm shadow-lg mb-2 hover:bg-red-700 active:scale-95 transition-all text-sm uppercase tracking-widest"
+            >
+              Exit Training [X]
+            </button>
+          )}
+
           <div className="bg-stone-900/80 border-2 border-amber-900 p-2 md:p-4 rounded-sm shadow-lg w-40 md:w-64 backdrop-blur-sm ml-auto">
             <div className="flex justify-between items-center mb-1">
               <span className="text-amber-500 font-bold text-xs md:text-lg uppercase">
@@ -49,6 +65,9 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ gameState, wisdom }) => {
           <div className="text-xl md:text-3xl font-black text-amber-500 tracking-widest drop-shadow-lg">
             WAVE {wave}
           </div>
+          <div className="text-amber-100/60 font-mono text-xs uppercase">
+            Score: {player.score}
+          </div>
         </div>
       </div>
 
@@ -57,7 +76,7 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ gameState, wisdom }) => {
             "{wisdom}"
           </div>
           
-          {/* Weapon Selector - Compatto su mobile */}
+          {/* Weapon Selector */}
           <div className="bg-stone-900/90 border-2 md:border-4 border-amber-900 px-2 md:px-8 py-1 md:py-4 rounded-lg md:rounded-xl flex items-end gap-2 md:gap-6 shadow-2xl backdrop-blur-md mb-2">
             {Object.values(WeaponType).map((wType) => {
               const isActive = player.currentWeapon === wType;
@@ -75,7 +94,7 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ gameState, wisdom }) => {
           </div>
 
           <div className="hidden lg:block w-48 text-amber-100/40 text-[9px] font-mono text-center mb-4 leading-tight">
-              [X] EXIT TO MENU | [DEL] WIPE<br/>
+              [X] EXIT TRAINING<br/>
               [W/S] MOVE | [SPACE] JUMP
           </div>
       </div>

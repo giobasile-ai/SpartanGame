@@ -1,6 +1,7 @@
 {
   "name": "Spartan Frontline",
   "short_name": "Spartan",
+  "description": "Spartan shooter with meteors and ancient weapons.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0c0a09",

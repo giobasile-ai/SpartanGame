@@ -10,7 +10,7 @@ const getCtx = () => {
   return audioCtx;
 };
 
-export const playSound = (type: 'spear' | 'gun' | 'bash' | 'teleport' | 'death' | 'hurt' | 'jump' | 'levelUp') => {
+export const playSound = (type: 'spear' | 'gun' | 'bash' | 'teleport' | 'death' | 'hurt' | 'jump' | 'levelUp' | 'rumble') => {
   const ctx = getCtx();
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
@@ -40,13 +40,14 @@ export const playSound = (type: 'spear' | 'gun' | 'bash' | 'teleport' | 'death' 
       osc.stop(now + 0.05);
       break;
     case 'bash':
+    case 'rumble':
       osc.type = 'triangle';
-      osc.frequency.setValueAtTime(150, now);
-      osc.frequency.linearRampToValueAtTime(50, now + 0.1);
-      gain.gain.setValueAtTime(0.4, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+      osc.frequency.setValueAtTime(type === 'bash' ? 150 : 60, now);
+      osc.frequency.linearRampToValueAtTime(20, now + 0.3);
+      gain.gain.setValueAtTime(0.5, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
       osc.start(now);
-      osc.stop(now + 0.1);
+      osc.stop(now + 0.3);
       break;
     case 'teleport':
       osc.type = 'sawtooth';
@@ -91,8 +92,8 @@ export const playSound = (type: 'spear' | 'gun' | 'bash' | 'teleport' | 'death' 
       gain2.connect(ctx.destination);
       osc.type = 'sine';
       osc2.type = 'sine';
-      osc.frequency.setValueAtTime(523.25, now); // C5
-      osc2.frequency.setValueAtTime(659.25, now + 0.1); // E5
+      osc.frequency.setValueAtTime(523.25, now); 
+      osc2.frequency.setValueAtTime(659.25, now + 0.1); 
       gain.gain.setValueAtTime(0.1, now);
       gain.gain.linearRampToValueAtTime(0, now + 0.4);
       gain2.gain.setValueAtTime(0.1, now + 0.1);

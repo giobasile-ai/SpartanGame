@@ -1,4 +1,3 @@
-
 export enum WeaponType {
   SPEAR = 'SPEAR',
   SHIELD = 'SHIELD',
@@ -13,9 +12,9 @@ export enum CharacterType {
 }
 
 export enum ObstacleType {
-  WALL = 'WALL',       // Brown: Solid
-  GRASS = 'GRASS',     // Green: Passable
-  TELEPORT = 'TELEPORT' // Blue: Portal
+  WALL = 'WALL',
+  GRASS = 'GRASS',
+  TELEPORT = 'TELEPORT'
 }
 
 export enum ParticleType {
@@ -23,7 +22,17 @@ export enum ParticleType {
   SPARK = 'SPARK',
   SMOKE = 'SMOKE',
   MAGIC = 'MAGIC',
-  DUST = 'DUST'
+  DUST = 'DUST',
+  FIRE = 'FIRE'
+}
+
+export interface Meteor {
+  id: string;
+  x: number;
+  y: number;
+  size: number;
+  speed: number;
+  angle: number;
 }
 
 export interface Weapon {
@@ -88,6 +97,7 @@ export interface GameState {
   projectiles: Projectile[];
   obstacles: Obstacle[];
   particles: Particle[];
+  meteors: Meteor[];
   isGameOver: boolean;
   isPaused: boolean;
   isTrainingMode: boolean;
